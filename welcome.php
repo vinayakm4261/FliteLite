@@ -1,8 +1,9 @@
 <?php
-    session_start();
+    @session_start();
     include("php/dbcon.php");
+    $uid = $_SESSION["uid"];
     if(!isset($_SESSION["username"])) {
-        $msg = "Please Login first to complete your bookings..!!";
+        $msg = "Please login first..!!";
         echo "<script>alert('".$msg."')</script>";
         header("location: index.php");
     }
@@ -10,6 +11,11 @@
         session_destroy();
         unset($_SESSION["username"]);
         header("location: index.php");
+    }
+    if(isset($_POST["username"])) {
+        $last = $db -> prepare("SELECT b_date, b_dest, b_src FROM bookings ORDER BY book_id DESC LIMIT 1");
+        $last -> execute();
+        $res = $last -> fetch();
     }
 ?>
 <!DOCTYPE html>
@@ -42,9 +48,6 @@
                         <a class="nav-link" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Manage</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Hi, <?php echo $_SESSION["username"];?></a>
                     </li>
                     <li class="nav-item">
@@ -71,29 +74,29 @@
         <div class="light-div-bckg">
             <div class="container">
                 <div class="row">
-                    <h2 class="header-blue animated fadeIn">Pending Booking</h2>
+                    <div class="col-lg-12">
+                        <h2 class="header-blue animated fadeIn">Pending Booking</h2>
+                    </div>
                 </div>
                 <?php
                     if(isset($_POST["b_date"])) {
                         $f_id = $_POST["f_id"];
                         $b_date = $_POST["b_date"];
                         $b_type = $_POST["b_type"];
-                        $dataFetchQ = "SELECT user_ID, f_no, f_src, f_dest, f_ppt from users, flights WHERE username = :uname AND f_id = :f_id";
+                        $dataFetchQ = "SELECT f_no, f_src, f_dest, f_ppt from flights WHERE f_id = :f_id";
                         $dFQuery = $db -> prepare($dataFetchQ);
-                        $dFQuery -> bindParam(":uname", $_SESSION["username"], PDO::PARAM_STR);
                         $dFQuery -> bindParam(":f_id", $f_id, PDO::PARAM_STR);
                         $dFQuery -> execute();
                         $result = $dFQuery -> fetchAll(PDO::FETCH_ASSOC);
                         if($dFQuery -> rowCount() == 1) {
                             foreach($result as $data) {
-                                $u_id = $data["user_ID"];
                                 $f_no = $data["f_no"];
                                 $f_src = $data["f_src"];
                                 $f_dest = $data["f_dest"];
                                 $f_ppt = $data["f_ppt"];
                             }
                 ?>
-                <div class="row">
+                <div class="row" id="finalForm">
                     <div class="col-lg-6">
                         <h5 class="header-blue">Selected Flight<span class="header-red">:</span> <?php echo $f_no;?></span>
                         <h5 class="header-blue">Flight Date<span class="header-red">:</span> <?php echo $b_date;?></span>
@@ -104,7 +107,7 @@
                             <?php
                                 $tempas = "SELECT p_id, pname, page, pcont FROM passengers WHERE u_id=:uid";
                                 $passq = $db -> prepare($tempas);
-                                $passq -> bindParam(":uid", $u_id,PDO::PARAM_STR);
+                                $passq -> bindParam(":uid", $uid,PDO::PARAM_STR);
                                 $passq -> execute();
                                 $passengers = $passq -> fetchAll();
                                 foreach($passengers as $pass) {
@@ -124,15 +127,21 @@
                         </form>
                     </div>
                 </div>
+                <div class="row" id="finalComplete" style="display:none;">
+                    <h4 class="header-blue animated fadeIn">Booking Completed Successfully..<span class="header-red">!!</span></h4>
+                </div>
                 <?php
                         } else {
                             $msg = "Some Error Occurred";
                             echo "<script>alert('".$msg."')</script>";
                         }
                     } else {
+                        $f_ppt = "5";
                 ?>
-                <div class="row">
-                    <h4 class="header-blue animated fadeIn">No pending bookings<span class="header-red">.</span></h4>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <h4 class="header-blue animated fadeIn">No pending bookings<span class="header-red">.</span></h4>
+                    </div>
                 </div>
                 <?php
                     }
@@ -142,7 +151,70 @@
         <div class="dark-div-bckg">
             <div class="container">
                 <div class="row">
-                    <h2 class="header-blue animated fadeIn">Booking History</h2>
+                    <div class="col-lg-8">
+                        <h2 class="header-blue animated fadeIn">Manage Passengers</h2>
+                        <h4 class="header-blue">Add Passengers</h4>
+                        <form name="add-pass">
+                            <div class="form-group">
+                                <label for="pname">Passenger Name:</label>
+                                <input type="text" name="pname" class="form-control book-search" placeholder="Enter passenger name here..">
+                            </div>
+                            <div class="form-group">
+                                <label for="pname">Passenger Address:</label>
+                                <input type="text" name="paddr" class="form-control book-search" placeholder="Enter passenger address here..">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-lg-6">
+                                    <label for="page">Passenger Age:</label>
+                                    <input type="number" name="page" class="form-control book-search" placeholder="Enter passenger age here..">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="pcont">Passenger Contact Number:</label>
+                                    <input type="number" name="pcont" class="form-control book-search" placeholder="Enter passenger contact here..">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="passAdd" value="Add Passenger" class="btn btn-custom">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h4 class="header-blue">Edit Passenger Details</h4>
+                        <form name="edit-pass">
+                            <div class="form-group">
+                                <select class="form-control" name="edit-pass-sel">
+                                    <option disabled selected>Select Passenger</option>
+                                    <?php                                        
+                                        $tempas = "SELECT p_id, pname FROM passengers WHERE u_id=:uid";
+                                        $passq = $db -> prepare($tempas);
+                                        $passq -> bindParam(":uid", $uid,PDO::PARAM_STR);
+                                        $passq -> execute();
+                                        $passengers = $passq -> fetchAll();
+                                        foreach($passengers as $pass) {
+                                    ?>
+                                        <option><?php echo $pass["pname"];?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form=group">
+                                <input type="button" id="editPass1" class="btn btn-custom" value="Select Passenger">
+                            </div>
+                        </form>
+                        <div style="display:hidden;">
+                            <table id="passData">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Age</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -191,22 +263,47 @@
                         alert("Please select a passenger..!!");
                     }
                 });
-                $("input[name='pass-book']").click(function() {
-                    var final_cost = checkPrice();
-                    var dataSend = $("form[name='book-final']").serialize() + "&pass-sub=1&cost=" + final_cost + "&uid="+<?php echo $u_id?>+"&f_id="+<?php echo $f_id?>+"&b_date=<?php echo $b_date?>&b_type=<?php echo $b_type?>&b_dest=<?php echo $f_dest?>&b_src=<?php echo $f_src?>";
-                    console.log(dataSend);
-                    if($(".sel-pass:checked").length > 0) {
-                        $.ajax({
-                            url: "php/book_process.php",
-                            method: "POST",
-                            data: dataSend,
-                            success: function(data) {
-                                alert(data);
-                            }
-                        });
-                    } else {
-                        alert("Please select a passenger..!!");
+                <?php if(isset($_POST['b_date'])) { ?>
+                    $("input[name='pass-book']").click(function() {
+                        var final_cost = checkPrice();
+                        var dataSend = $("form[name='book-final']").serialize() + "&pass-sub=1&cost=" + final_cost + "&uid="+<?php echo $uid?>+"&f_id="+<?php echo $f_id?>+"&b_date=<?php echo $b_date?>&b_type=<?php echo $b_type?>&b_dest=<?php echo $f_dest?>&b_src=<?php echo $f_src?>";
+                        console.log(dataSend);
+                        if($(".sel-pass:checked").length > 0) {
+                            $.ajax({
+                                url: "php/book_process.php",
+                                method: "POST",
+                                data: dataSend,
+                                success: function(data) {
+                                    if( data == 3) {
+                                        $("#finalForm").hide();
+                                        $("#finalComplete").show();
+                                    } else {
+                                        alert("An error occurred while booking please try again later..\nYou will be redirected to the home page");
+                                        var red = window.location.href;
+                                        red = red.replace("welcome", "index");
+                                        window.location = red;
+                                    }
+                                }
+                            });
+                        } else {
+                            alert("Please select a passenger..!!");
+                        }
+                    });
+                <?php
                     }
+                ?>   
+                $("#editPass1").click(function() {
+                    $.ajax({
+                        url: "php/passengers.php",
+                        method: "POST",
+                        data: $("form[name='edit-pass").serialize() + "&edit-pass=1",
+                        dataType:"json",
+                        success: function(data) {
+                            var msg = "<td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.age+"</td><td>"+data.contact+"</td>";
+                            $("#passData").append(msg);
+                            $("#passData").show();
+                        }
+                    });
                 });
             });
         </script>

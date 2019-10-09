@@ -17,6 +17,7 @@
     }
     if(isset($_POST["pass-sub"])) {
         //data for booking table
+        $code = 0;
         $b_date = $_POST["b_date"];
         $f_id = $_POST["f_id"];
         $b_type = $_POST["b_type"];
@@ -36,9 +37,9 @@
         $status = $bookq -> execute();
         $bid = $db -> lastInsertId();
         if($status) {
-            $msg = "Booking added successfully";
+            $code = 1;
         } else {
-            $msg = "Some error occurred while adding booking";
+            $code -= 1;
         }
         //data for includes table
         $passengers = $_POST["passn"];
@@ -50,10 +51,21 @@
             $passtat = $inclp -> execute();
         }
         if($passtat) {
-            $msg .= "Passengers added to the booking successfully";
+            $code += 1;
         } else {
-            $msg .= "Some error occurred while adding passengers";
+            $code -= 1;
         }
-        echo $msg;
+        $newavail = count($passengers);
+        $tempu = "UPDATE flights SET f_avail = f_avail - :f_avail WHERE f_id = :f_id";
+        $queryu =  $db -> prepare($tempu);
+        $queryu -> bindParam(":f_avail", $newavail);
+        $queryu -> bindParam(":f_id", $f_id);
+        $stat = $queryu -> execute(); 
+        if($stat) {
+            $code += 1;
+        } else {
+            $code -= 1;
+        }
+        echo $code;
     }
 ?>

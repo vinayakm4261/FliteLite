@@ -1,3 +1,28 @@
+<?php
+    @session_start();
+    if(isset($_GET["logout"])) {
+        session_destroy();
+        unset($_SESSION["username"]);
+        header("location: index.php");
+    }
+    if(isset($_SESSION["username"])) {
+        $hello = "Hi, ".$_SESSION['username'];
+        $hello_link = "welcome.php";
+        $action = "Logout";
+        $action_link = "index.php?logout='1'";
+        $data1 = "#";
+        $data2 = "#";
+        $data3 = "#";
+    } else {
+        $hello = "Sign-up";
+        $hello_link = "#";
+        $action = "Login";
+        $action_link = "#";
+        $data1 = "modal";
+        $data2 = "#registerModal";
+        $data3 = "#loginModal";
+    }
+?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -27,13 +52,13 @@
                         <a class="nav-link" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Sign-Up</a>
+                        <a class="nav-link" href="<?php echo $hello_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data2 ?>"><?php echo $hello ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                        <a class="nav-link" href="<?php echo $action_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data3 ?>"><?php echo $action ?></a>
                     </li>
                 </ul>
             </nav>

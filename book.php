@@ -1,13 +1,23 @@
 <?php
     $errors = array();
+    @session_start();
     if(!isset($_SESSION["username"])) {
         include("php/dbcon.php");
+        $hello = "Sign-up";
+        $hello_link = "#";
+        $action = "Login";
+        $action_link = "#";
+        $data1 = "modal";
+        $data2 = "#registerModal";
+        $data3 = "#loginModal";
     } else {
-?>
-    <script>
-        alert("There's some problem");
-    </script>
-<?php
+        $hello = "Hi, ".$_SESSION['username'];
+        $hello_link = "welcome.php";
+        $action = "Logout";
+        $action_link = "index.php?logout='1'";
+        $data1 = "#";
+        $data2 = "#";
+        $data3 = "#";
     }
     if(isset($_POST["search-sub"])) {
         $source = $_POST["src"];
@@ -49,13 +59,13 @@
                         <a class="nav-link" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Sign-Up</a>
+                        <a class="nav-link" href="<?php echo $hello_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data2 ?>"><?php echo $hello ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                        <a class="nav-link" href="<?php echo $action_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data3 ?>"><?php echo $action ?></a>
                     </li>
                 </ul>
             </nav>
@@ -67,7 +77,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <form class="form" method="POST" action="index.php" name="loginForm">
+                        <form class="form" method="POST" action="book.php" name="loginForm">
                             <?php
                                 include("php/login.php");
                                 include("php/errors.php"); ?>
@@ -340,7 +350,7 @@
                     <?php
                         } else {
                     ?>
-                form.submit();
+                    form.submit();
                     <?php
                         }
                     ?>

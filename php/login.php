@@ -18,7 +18,9 @@
             $query->bindParam(":username",$username,PDO::PARAM_STR);
             $query->bindParam(":password",$password,PDO::PARAM_STR);
             $query->execute();
+            $usr = $query -> fetch();
             if($query->rowCount() == 1) {
+                $_SESSION["uid"] = $usr["user_ID"];
                 $_SESSION["username"] = $username;
                 $_SESSION["success"] = "Welcome to the webpage $username..!!";
             }
