@@ -152,6 +152,25 @@ body {
 #select-form {
     display: none;
 }
+#passData {
+    display: none;
+    margin-top: 10px;
+}
+.table-bordered {
+    border-color: #042f4b;
+}
+#successPass {
+    display: none;
+}
+#failurePass {
+    display: none;
+}
+#successAdd {
+    display: none;
+}
+#failureAdd {
+    display: none;
+}
 /* .input-custom-fix {
     border: none;
     padding: 0;

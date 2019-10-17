@@ -128,7 +128,9 @@
                     </div>
                 </div>
                 <div class="row" id="finalComplete" style="display:none;">
-                    <h4 class="header-blue animated fadeIn">Booking Completed Successfully..<span class="header-red">!!</span></h4>
+                    <div class="alert alert-success">
+                        <h4 class="header-blue animated fadeIn">Booking Completed Successfully..<span class="header-red">!!</span></h4>
+                    </div>
                 </div>
                 <?php
                         } else {
@@ -174,9 +176,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" id="passAdd" value="Add Passenger" class="btn btn-custom">
+                                <input type="button" id="passAdd" value="Add Passenger" class="btn btn-custom">
                             </div>
                         </form>
+                        <div class="alert alert-success" id="successAdd">
+                            Passenger Edited Successfully
+                        </div>
+                        </form>
+                        <div class="alert alert-info" id="failureAdd">
+                            An Error Occurred
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -204,31 +213,55 @@
                                 <input type="button" id="editPass1" class="btn btn-custom" value="Select Passenger">
                             </div>
                         </form>
-                        <div style="display:hidden;">
-                            <table id="passData">
+                    </div>
+                </div>
+                <div class="row" id="passData">
+                    <div class="col-lg-6">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>Age</th>
                                     <th>Contact</th>
                                 </tr>
-                            </table>
+                            </thead>
+                            <tbody id="addPassData">
+                            </tbody>
+                        </table>
+                        <h4 class="header-blue">Edit Details</h4>
+                        <form name="edit-single">
+                            <div class="form-group">
+                                <label for="paname">Passenger Name:</label>
+                                <input type="text" name="paname" class="form-control book-search">
+                            </div>
+                            <div class="form-group">
+                                <label for="paaddr">Passenger Address:</label>
+                                <input type="text" name="paaddr" class="form-control book-search">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-lg-6">
+                                    <label for="paage">Passenger Age:</label>
+                                    <input type="number" name="paage" class="form-control book-search" placeholder="Enter passenger age here..">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="pacont">Passenger Contact Number:</label>
+                                    <input type="number" name="pacont" class="form-control book-search" placeholder="Enter passenger contact here..">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="paid">
+                                <input type="button" id="passEdit" value="Edit Passenger" class="btn btn-custom">
+                            </div>
+                        </form>
+                        <div class="alert alert-success" id="successPass">
+                            <p>Passenger Added Successfully</p>
+                        </div>
+                        </form>
+                        <div class="alert alert-info" id="failurePass">
+                            <p>An Error Occurred</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="light-div-bckg">
-            <div class="container">
-                <div class="row">
-                    <h2 class="header-blue animated fadeIn">Referrals</h2>
-                </div>
-            </div>
-        </div>
-        <div class="dark-div-bckg">
-            <div class="container">
-                <div class="row">
-                    <h2 class="header-blue animated fadeIn">Plus FliteMiles</h2>
                 </div>
             </div>
         </div>
@@ -291,7 +324,23 @@
                     });
                 <?php
                     }
-                ?>   
+                ?>
+                $("#passAdd").click(function() {
+                    console.log($("form[name='add-pass']").serialize());
+                    $.ajax({
+                        url: "php/passengers.php",
+                        method: "POST",
+                        data: $("form[name='add-pass']").serialize() + "&add-pass=1",
+                        success: function(data) {
+                            console.log(data);
+                            if(data == 1) {
+                                $("#successAdd").show();
+                            } else if(data == 0) {
+                                $("#failureAdd").show();
+                            }
+                        }
+                    });
+                });
                 $("#editPass1").click(function() {
                     $.ajax({
                         url: "php/passengers.php",
@@ -300,8 +349,29 @@
                         dataType:"json",
                         success: function(data) {
                             var msg = "<td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.age+"</td><td>"+data.contact+"</td>";
-                            $("#passData").append(msg);
+                            $("#addPassData").html(msg);
+                            $("input[name='paname']").val(data.name);
+                            $("input[name='paaddr']").val(data.address);
+                            $("input[name='paage']").val(data.age);
+                            $("input[name='pacont']").val(data.contact);
+                            $("input[name='paid']").val(data.id);
                             $("#passData").show();
+                        }
+                    });
+                });
+                $("#passEdit").click(function() {
+                    $("#failurePass").hide();
+                    $("#failurePass").hide();
+                    $.ajax({
+                        url: "php/passengers.php",
+                        method: "POST",
+                        data: $("form[name='edit-single']").serialize() + "&edit-single=1",
+                        success: function(data) {
+                            if(data == 1) {
+                                $("#successPass").show();
+                            } else if(data == 0) {
+                                $("#failurePass").show();
+                            }
                         }
                     });
                 });
