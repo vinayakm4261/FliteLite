@@ -158,62 +158,56 @@
                 <div class="row">
                     <div class="owl-carousel owl-theme">
                         <div>
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/work-2.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 0</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/NYC.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-left">
+                                    <h5 class="card-title">New York</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="card item" style="width: 20rem;">
-                                <img src="images/image_5.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 1</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/Paris.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-right">
+                                    <h5 class="card-title">Paris</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="card item" style="width: 20rem;">
-                                <img src="images/image_6.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 2</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/cote_d-azur.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-right">
+                                    <h5 class="card-title">Nice</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="card item" style="width: 20rem;">
-                                <img src="images/work-2.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 3</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/swit.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-right">
+                                    <h5 class="card-title">Switzerland</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="card item" style="width: 20rem;">
-                                <img src="images/image_5.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 4</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/stuttgart.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-right">
+                                    <h5 class="card-title">Stuttgart</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="card item" style="width: 20rem;">
-                                <img src="images/image_6.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title">Destination 5</h5>
-                                    <p class="card-text">Some quick example text to build on..</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="card text-light item" style="width: 24rem;border-radius:8px;">
+                                <img src="images/london.jpg" class="carousel-img">
+                                <div class="card-img-overlay text-right">
+                                    <h5 class="card-title">London</h5>
+                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                 </div>
                             </div>
                         </div>
