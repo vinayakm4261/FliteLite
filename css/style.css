@@ -12,15 +12,19 @@ body {
 }
 .navbg {
     background-color: #042f4b;
-    /* background-image: url("../images/jadeocean.jpg"); */
-    height: 400px;
     color: #fff6da;
 }
 .navbg-small .navbar-custom {
     background-color: #042f4b;
-    /* background-image: url("../images/jadeocean.jpg"); */
-    height: 54px;
     color: #fff6da;
+}
+.navbg-resp {
+    padding-bottom: 100px;
+}
+@media only screen and (max-width: 768px) {
+    .navbg-resp {
+        padding-bottom: 40px;
+    }
 }
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
@@ -29,9 +33,48 @@ body {
 .navbar-custom .navbar-nav .nav-link {
     color: #fff6da;
 }
+.custom-toggler.navbar-toggler { 
+    border-color: #fff6da;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.custom-toggler .navbar-toggler-icon { 
+    background-image: url( "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 246, 218, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
+}
 .main-heading {
     margin-top: 40px;
     font-size: 54px;
+}
+.main-subheading {
+    margin-top: 50px;
+}
+@media only screen and (max-width: 768px) {
+    .main-subheading {
+        margin: 0px;
+        text-align: center;
+    }
+    .main-heading {
+        margin-top: 40px;
+        font-size: 54px;
+        text-align: center;
+    }
+    .main-headsearch {
+        margin-left: 64px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .main-subheading {
+        /* margin: 0px; */
+        text-align: center;
+    }
+    .main-heading {
+        margin-top: 40px;
+        font-size: 54px;
+        text-align: center;
+    }
+    .main-headsearch {
+        margin-left: 19%;
+    }
 }
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
@@ -44,13 +87,26 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     color: #fbc99d;
-    height: 50px;
+    height: 3.125rem;
 }
 .main-search:focus {
     background-color: rgba(0, 0, 0, 0.1);
     border-color: #fbc99d;
+    color: #fff6da;
 }
-.main-search::-webkit-input-placeholder {
+@media only screen and (max-width: 768px) {
+    .main-search {
+        margin: 20px 5px 0px 5px;
+        width: 80%;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .main-search {
+        margin: 20px 5px 0px 5px;
+        width: 90%;
+    }
+}
+.main-search::-webkit-placeholder {
     color: rgba(255, 246, 218, 0.5);
 }
 .main-search:-moz-placeholder {
@@ -105,7 +161,20 @@ body {
     font-size: 24px;
     border: 0;
     background-color: rgba(240, 248, 255, 0);
+    margin-right: 2px;
     /* border-color: #ed1250; */
+}
+@media only screen and (max-width: 768px) {
+    .search-sub {
+        margin-left: 35%;
+        /* border-color: #ed1250; */
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .search-sub {
+        margin-left: 39%;
+        /* border-color: #ed1250; */
+    }
 }
 .owl-prev {
     position: absolute;

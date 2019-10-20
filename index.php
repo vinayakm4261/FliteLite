@@ -27,7 +27,7 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=false;">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>FliteLite | Airline Reservation</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -39,39 +39,46 @@
     </head>
     <body>
         <div class="conatiner-fluid navbg" role="navigation">
-            <nav class="navbar navbar-expand-lg navbar-light navbar-custom navbar-collapse-xs">
+            <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <a class="navbar-brand animated bounce" href="index.php">FliteLite<span class="header-red">.</span></a>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $hello_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data2 ?>"><?php echo $hello ?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $action_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data3 ?>"><?php echo $action ?></a>
-                    </li>
-                </ul>
+                <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="book.php">Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.php">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $hello_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data2 ?>"><?php echo $hello ?></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $action_link ?>" data-toggle="<?php echo $data1 ?>" data-target="<?php echo $data3 ?>"><?php echo $action ?></a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
             <div class="row">
-                <div class="col-lg-4 offset-lg-1">
+                <div class="col-lg-4 offset-lg-1 col-md-8 offset-md-2 col-sm-12">
                     <h2 class="main-heading animated pulse">Search Flights<span class="header-red">.</span></h2>
+                </div>
+                <div class="col-lg-4 offset-lg-1 main-subheading col-md-8 offset-md-2 col-sm-12" style="margin-top: 50px;">
+                    <h5>Book Flights, <span class="header-red">Check-in</span>, Check Flight status and <span class="header-red">much more.</span></h5>
+                </div>
+                <div class="col-lg-4 offset-lg-1 col-md-8 col-sm-12 main-headsearch">
                     <form method="POST" action="book.php">
                         <input type="text" class="form-control main-search" name="src" placeholder="Source">
                         <input type="text" class="form-control main-search" name="dest" placeholder="Destination">
-                        <button class="form-control main-search search-sub mr-2" type="submit" name="search-sub">
+                        <button class="form-control main-search search-sub" type="submit" name="search-sub">
                             <i class="fa fa-plane"></i>
                         </button>
                     </form>
-                </div>
-                <div class="col-lg-4 offset-lg-1" style="margin-top: 50px;">
-                    <h5>Book Flights, <span class="header-red">Check-in</span>, Check Flight status and <span class="header-red">much more.</span></h5>
                 </div>
             </div>
         </div>
@@ -100,7 +107,6 @@
                             </div>
                             <div class="form-group">
                                 <input class="btn btn-primary form-control" value="Login" type="submit" name="loginSub">
-                                <span class="psw"><a href="#">Forgot password?</a></span>
                             </div>
                         </form>
                     </div>

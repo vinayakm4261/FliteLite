@@ -37,10 +37,14 @@
         <link rel="stylesheet" type="text/css"  href="css/style.css">
     </head>
     <body>
-        <div class="conatiner-fluid navbg" role="navigation">
+        <div class="navbg navbg-resp" role="navigation">
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-                <a class="navbar-brand animated bounce" href="#">FliteLite<span class="header-red">.</span></a>
-                <ul class="navbar-nav ml-auto">
+                <a class="navbar-brand animated bounce" href="index.php">FliteLite<span class="header-red">.</span></a>
+                <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Account</a>
                     </li>
@@ -59,12 +63,12 @@
                 <div class="col-lg-4 offset-lg-1">
                     <h2 class="main-heading animated pulse">Welcome, <?php echo $_SESSION["username"];?><span class="header-red">.</span></h2>
                 </div>
-                <div class="col-lg-4 offset-lg-1" style="margin-top: 50px;">
+                <div class="col-lg-4 offset-lg-1 col-md-8 offset-md-2 col-sm-12 main-subheading" style="margin-top: 50px;">
                     <h5><span class="header-red">No</span> Flights booked currently<span class="header-red">.</span></h5>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 offset-lg-1">
+                <div class="col-lg-4 offset-lg-1 col-sm-12 col-md-8 main-headsearch">
                     <form>
                         <input type="text" class="form-control main-search" placeholder="Search your bookings">
                     </form>
